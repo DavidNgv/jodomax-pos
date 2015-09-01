@@ -1,0 +1,71 @@
+<div layout="row" flex>
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    <div layout="column" class="md-whiteframe-z2 md-padding">
+      <md-select ng-model="filter.FK_category" aria-label="Discount">
+        <md-option ng-value="cat.Id" ng-repeat="cat in catList">{{cat.Label}}</md-option>
+      </md-select>
+    </div>
+
+    <div layout="column" flex class="content-wrapper">
+      <md-list>
+        <md-item ng-repeat="product in productList.itemList">
+          <md-item-content>
+            <md-button ng-click="selectProduct(product)" ng-class="{'selected' : product.Id === productList.currentItem.Id }">
+              {{product.Code}} {{product.Title}}
+            </md-button>
+          </md-item-content>
+        </md-item>
+      </md-list>
+    </div>
+  </md-sidenav>
+
+  <div layout="column" flex id="content" class="content-wrapper">
+    <div flex>
+      <md-content layout="column" class="md-padding" flex>
+        <md-input-container>
+          <label>Code</label>
+          <input ng-model="productList.currentItem.Code">
+        </md-input-container>
+
+        <md-input-container>
+          <label>Title</label>
+          <input ng-model="productList.currentItem.Title">
+        </md-input-container>
+
+        <md-input-container>
+          <label>Price</label>
+          <input ng-model="productList.currentItem.Price" type="number">
+        </md-input-container>
+
+        <md-select ng-model="productList.currentItem.Category" style="min-width: 200px;">
+          <md-select-label>{{ productList.currentItem.Category ? productList.currentItem.Category.Label : 'Category' }}</md-select-label>
+          <md-option ng-value="cat" ng-repeat="cat in catList">{{cat.Label}}</md-option>
+        </md-select>
+
+        <div>
+          <div ng-repeat="ac in productList.currentItem.AttributeCategory" layout="column">
+            <div layout="row">
+              <p>{{ ac.Label }}</p><md-checkbox ng-model="ac.Selected" aria-label="{{ ac.Label }}"></md-checkbox>
+            </div>
+            <div layout="row" ng-show="ac.Selected" layout-wrap>
+              <md-checkbox ng-repeat="attr in ac.Attributes" ng-model="attr.Selected" aria-label="{{ attr.Label }}">{{ attr.Label }}</md-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <md-select ng-model="productList.currentItem.FK_discount" aria-label="Discount">
+          <md-option ng-value="disc.Id" ng-repeat="disc in discountList">{{disc.Label}}</md-option>
+        </md-select>
+
+        <md-button class="md-raised md-primary"  ngf-select ngf-change="upload($files)">Upload on file change</md-button>
+
+        <div layout="column" layout-align="center center">
+          <img ngf-src="files[0]" ngf-accept="JPG" src="{{productList.currentItem.getImagePath()}}" style="width: 90%;" />
+        </div>
+
+        <md-button class="md-raised md-primary" ng-click="saveProduct()">Save</md-button>
+      </md-content>
+    </div>
+  </div>
+</div>
+

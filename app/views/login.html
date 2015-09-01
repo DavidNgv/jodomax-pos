@@ -1,0 +1,13 @@
+<div layout="column" flex layout-align="center center">
+  <div style="width:300px;">
+	  <md-input-container>
+	    <label>User name</label>
+	    <input ng-model="user.userName">
+	  </md-input-container>
+	  <md-input-container>
+	    <label>Password</label>
+	    <input ng-model="user.password" type="password">
+	  </md-input-container>
+	  <md-button class="md-raised md-primary" ng-click="login(user)">Login</md-button>
+  </div>	
+</div>

@@ -1,0 +1,28 @@
+<div layout="row" flex>
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-list>
+      <md-item ng-repeat="attr in attributeList.itemList">
+        <md-item-content>
+          <md-button ng-click="selectAttribute(attr)" ng-class="{'selected' : attr.Id === attributeList.currentItem.Id }">
+            {{attr.Label}}
+          </md-button>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-sidenav>
+
+  <div layout="column" flex id="content">
+    <md-content layout="column" flex class="md-padding">
+      <md-input-container>
+        <label>Label</label>
+        <input ng-model="attributeList.currentItem.Label">
+      </md-input-container>
+
+      <md-select ng-model="attributeList.currentItem.FK_group" aria-label="Attribute Group">
+        <md-option ng-value="ag.Id" ng-repeat="ag in attributeGroup">{{ag.Label}}</md-option>
+      </md-select>
+
+      <md-button class="md-raised md-primary" ng-click="saveAttribute()">Save</md-button>
+    </md-content>
+  </div>
+</div>

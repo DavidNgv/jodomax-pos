@@ -1,0 +1,139 @@
+<div layout="row" flex>
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="false">
+    <md-list>
+      <md-item ng-repeat="it in stockInList.itemList">
+        <md-item-content>
+          <md-button ng-click="selectStockIn(it)" ng-class="{'selected' : it.Id === stockIn.Id }">
+            {{it.Id}} {{it.inDate}}
+          </md-button>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-sidenav>
+
+  <div layout="row" flex>
+    <div layout="column" flex="65" class="md-padding">
+      <div layout="column" flex class="md-whiteframe-z2 bill">
+        <div layout="row" class="bill-toolbar md-padding">
+          <div flex="50">Mô tả</div>
+          <div flex="15" class="right-align">Giá</div>
+          <div flex="10" class="right-align">SL</div>
+          <div flex="10" class="right-align">%</div>
+          <div flex="15" class="right-align">Thành tiền</div>
+        </div>
+
+        <md-list flex>
+          <md-list-item ng-repeat="item in stockIn.stockInDetailList.itemList" ng-click="stockInDetailSelect(item, $event)" class="{'sales-item-selected' : item.Id === stockIn.stockInDetailList.currentItem.Id }">
+            <div flex="50">{{item.Title}}&nbsp;<span ng-repeat="attr in item.Attributes">{{attr.Label}}:{{attr.Value.Label}}&nbsp;</span>
+            </div>
+            <div flex="15" class="right-align">{{item.getPriceText()}}</div>
+            <div flex="10" class="right-align">{{item.Qty}}</div>
+            <div flex="10" class="right-align">{{item.Disc}}%</div>
+            <div flex="15" class="right-align">{{item.getAmountText()}}</div>
+          </md-list-item>
+        </md-list>
+
+        <div layout="row" class="bill-summary md-padding">
+          <div flex="45"></div>
+          <div flex="15" class="right-align"></div>
+          <div flex="10" class="right-align"></div>
+          <div flex="15" class="right-align">Tổng tiền</div>
+          <div flex="15" class="right-align">{{stockIn.getTotalAmount()}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div layout="column" flex="35">
+      <div class="content-wrapper" class="md-padding">
+        <div layout="column" class="md-padding">
+          <div layout="column" class="md-whiteframe-z2 md-padding">
+            <div layout="row">
+              <md-button class="md-icon-button md-primary" aria-label="Add Supplier" ng-click="addSupplier($event)">
+                <md-icon md-svg-icon="images/icons/add180.svg"></md-icon>
+              </md-button>
+
+              <md-autocomplete
+                  ng-disabled="false"
+                  md-no-cache="true"
+                  md-selected-item="selectedSupplier"
+                  md-search-text-change="searchTextChange(mobileNumber)"
+                  md-search-text="mobileNumber"
+                  md-selected-item-change="selectedItemChange(item)"
+                  md-items="item in querySearch(mobileNumber)"
+                  md-item-text="item.Name"
+                  md-min-length="4"
+                  placeholder="Nhà cung cấp">
+                <md-item-template>
+                  <span md-highlight-text="mobileNumber" md-highlight-flags="^i">{{item.Name}}</span>
+                </md-item-template>
+                <md-not-found>
+                  Không tìm thấy số "{{mobileNumber}}"
+                </md-not-found>
+              </md-autocomplete>
+            </div>
+
+            <md-select ng-model="stockIn.FK_store" aria-label="Store">
+              <md-option ng-value="it.Id" ng-repeat="it in storeList">{{it.Label}}</md-option>
+            </md-select>
+          </div>
+
+          <div layout="column" class="md-whiteframe-z2 md-padding">
+            <div layout="row">
+              <md-input-container flex="25">
+                <label>Mã hàng</label>
+                <input ng-model="stockIn.stockInDetailList.currentItem.Code" ng-keypress="onCodeKeyPress($event)" id="item-code">
+              </md-input-container>
+
+              <md-input-container flex="55">
+                <label>Tên hàng</label>
+                <input ng-model="stockIn.stockInDetailList.currentItem.Title" disabled>
+              </md-input-container>
+
+              <md-button class="md-fab md-mini" aria-label="New" ng-show="!stockIn.stockInDetailList.isNewItem" ng-click="newStockInDetail()">
+                <md-icon md-svg-src="images/icons/add180.svg"></md-icon>
+              </md-button>
+            </div>
+
+            <div layout="row">
+              <div ng-repeat="ac in stockIn.stockInDetailList.currentItem.Attributes" layout="column">
+                <label>{{ ac.Label }}</label>
+                <select ng-model="ac.Value" ng-options="item.Label for item in ac.Attributes track by item.Id">
+                  <option value=""></option>
+                </select>
+              </div>
+
+              <md-input-container flex="30">
+                <label>Số lượng</label>
+                <input ng-model="stockIn.stockInDetailList.currentItem.Qty" type="number" ng-keypress="onQtyKeyPress($event)">
+              </md-input-container>
+
+            </div>
+          </div>
+
+          <div layout="column" class="md-whiteframe-z2 md-padding">
+<!--
+            <div layout="row">
+              <div flex>
+                <label>Total Amount</label>
+                <label>{{stockIn.getTotalAmount()}}</label>
+              </div>
+            </div>
+-->
+            <div layout="row">
+              <md-button class="md-raised md-primary" ng-click="saveStockIn()">Lưu
+                <md-icon md-svg-icon="images/icons/save20.svg"></md-icon>
+              </md-button>
+              <md-button class="md-raised md-primary" ng-click="listStockIn($event)">Liệt kê
+                <md-icon md-svg-icon="images/icons/list88.svg"></md-icon>
+              </md-button>
+            </div>
+
+            <!--<md-button class="md-raised md-primary" ng-click="printStockIn($event)">Print</md-button>-->
+            <!--<md-button class="md-raised md-primary" ng-click="clearSupplier($event)">Clear Supplier</md-button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

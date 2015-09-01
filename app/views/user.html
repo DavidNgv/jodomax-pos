@@ -1,0 +1,39 @@
+<div layout="row" flex>
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-list>
+      <md-item ng-repeat="user in userList.itemList">
+        <md-item-content>
+          <md-button ng-click="selectUser(user)" ng-class="{'selected' : user.Id === userList.currentItem.Id }">
+            {{user.UserName}}
+          </md-button>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-sidenav>
+
+  <div layout="column" flex id="content">
+    <md-content layout="column" flex class="md-padding">
+      <md-input-container>
+        <label>Tên đăng nhập</label>
+        <input ng-model="userList.currentItem.UserName">
+      </md-input-container>
+
+      <md-input-container>
+        <label>Họ và tên</label>
+        <input ng-model="userList.currentItem.FullName">
+      </md-input-container>
+
+      <md-input-container>
+        <label>Mật khẩu</label>
+        <input ng-model="userList.currentItem.Password" type="password">
+      </md-input-container>
+
+      <md-select ng-model="userList.currentItem.FK_group" aria-label="User Group">
+        <md-option ng-value="ug.Id" ng-repeat="ug in userGroup">{{ug.Label}}</md-option>
+      </md-select>
+
+      <md-button class="md-raised md-primary" ng-click="saveUser()">Save</md-button>
+    </md-content>
+  </div>
+</div>
+

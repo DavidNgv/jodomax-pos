@@ -1,0 +1,26 @@
+<div layout="row" flex>
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="false">
+
+  </md-sidenav>
+
+  <md-content layout="column" flex>
+    <div class="gridListdemoBasicUsage" flex>
+      <md-grid-list
+          md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3" md-cols-lg="5" md-cols-gt-lg="6"
+          md-row-height-gt-md="4:6" md-row-height="4:6"
+          md-gutter="12px" md-gutter-gt-sm="8px" >
+        <md-grid-tile ng-repeat="product in productList.itemList" ng-style="{
+            'background-image': 'url(' + product.getImagePath() + ')'
+          }" style="background-size: cover">
+          <md-grid-tile-footer>
+            <h3>{{product.Title}}</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+      </md-grid-list>
+    </div>
+
+    <!--<md-button class="md-raised md-primary" ng-click="sideToggle()">Primary</md-button>-->
+
+  </md-content>
+</div>
+

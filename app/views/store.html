@@ -1,0 +1,35 @@
+<div layout="row" flex>
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-list>
+      <md-item ng-repeat="it in storeList.itemList">
+        <md-item-content>
+          <md-button ng-click="selectStore(it)" ng-class="{'selected' : it.Id === storeList.currentItem.Id }">
+            {{it.Label}}
+          </md-button>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-sidenav>
+
+  <div layout="column" flex id="content">
+    <md-content layout="column" flex class="md-padding">
+      <md-input-container>
+        <label>Tên</label>
+        <input ng-model="storeList.currentItem.Label">
+      </md-input-container>
+
+      <md-checkbox ng-model="storeList.currentItem.IsStockIn" aria-label="Is StockIn">
+        Có thể nhập hàng
+      </md-checkbox>
+
+      <md-checkbox ng-model="storeList.currentItem.IsSales" aria-label="Is Sales">
+        Có thể bán hàng
+      </md-checkbox>
+
+      <md-button class="md-raised md-primary" ng-click="saveStore()">Lưu
+        <md-icon md-svg-icon="images/icons/save20.svg"></md-icon>
+      </md-button>
+    </md-content>
+  </div>
+</div>
+

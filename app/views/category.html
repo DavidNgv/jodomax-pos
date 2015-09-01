@@ -1,0 +1,35 @@
+<div layout="row" flex>
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-list>
+      <md-item ng-repeat="cat in categoryList.itemList">
+        <md-item-content>
+          <md-button ng-click="selectCategory(cat)" ng-class="{'selected' : cat.Id === data.Id }">
+            {{cat.Label}}
+          </md-button>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-sidenav>
+
+  <div layout="column" flex id="content">
+    <md-content layout="column" flex class="md-padding">
+      <md-input-container>
+        <label>Label</label>
+        <input ng-model="categoryList.currentItem.Label">
+      </md-input-container>
+
+      <div>
+        <div ng-repeat="ac in categoryList.currentItem.Attributes" layout="column">
+          <div layout="row">
+            <p>{{ ac.Label }}</p><md-checkbox ng-model="ac.Selected" aria-label="{{ ac.Label }}"></md-checkbox>
+          </div>
+          <div layout="row" ng-show="ac.Selected" layout-wrap>
+            <md-checkbox ng-repeat="attr in ac.Attributes" ng-model="attr.Selected" aria-label="{{ attr.Label }}">{{ attr.Label }}</md-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <md-button class="md-raised md-primary" ng-click="saveCategory()">Save</md-button>
+    </md-content>
+  </div>
+</div>

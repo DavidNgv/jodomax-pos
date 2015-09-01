@@ -1,0 +1,169 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+
+  <body ng-app="jodomaxApp" layout="column">
+    <md-toolbar>
+      <div class="md-toolbar-tools" layout="row">
+        <button ng-click="toggleSidenav('app-left')" class="menuBtn"></button>
+        <div>Nhà nghỉ Tiến-Lan</div>
+        <span flex></span>
+        <div>{{getUserName()}}</div>
+        <md-button ng-click="logout()" ng-show="isLogin()" class="md-icon-button" aria-label="Logout">
+          <md-icon md-svg-icon="images/icons/account4.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <div layout="row" flex>
+      <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="app-left" md-is-locked-open="false" style="z-index: 9999;">
+        <md-toolbar>
+          <div class="md-toolbar-tools" layout="row">
+            <div>Menu</div>
+          </div>
+        </md-toolbar>
+
+        <md-button ng-click="gotoPage('/main')">Main</md-button>
+        <md-button ng-click="gotoPage('/UserGroup')">Nhóm User</md-button>
+        <md-button ng-click="gotoPage('/User')">User</md-button>
+        <md-button ng-click="gotoPage('/Store')">Kho hàng</md-button>
+        <md-button ng-click="gotoPage('/attributegroup')">Nhóm thuộc tính</md-button>
+        <md-button ng-click="gotoPage('/attribute')">Thuộc tính</md-button>
+        <md-button ng-click="gotoPage('/category')">Nhóm hàng</md-button>
+        <md-button ng-click="gotoPage('/Discount')">Giảm giá</md-button>
+        <md-button ng-click="gotoPage('/product')">Sản phẩm</md-button>
+        <md-button ng-click="gotoPage('/StockIn')">Nhập hàng</md-button>
+        <md-button ng-click="gotoPage('/pos')">Bán hàng</md-button>
+      </md-sidenav>
+
+      <div layout="row" flex>
+      <!--<div layout="row" flex>-->
+        <div layout="row" flex ng-view="">
+        </div>
+      </div>
+    </div>
+
+    <div id="print_content" style="display: none">
+      <style>
+        table {
+          width: 500px;
+        }
+        table {
+          border: 2px solid black;
+          border-collapse: collapse;
+          margin: auto;
+        }
+
+        th {
+          border: 1px solid black;
+          padding: 15px;
+        }
+
+        td {
+          border: 1px solid black;
+          padding: 15px;
+        }
+
+        .text-left-align {
+          text-align: left;
+        }
+        .text-right-align {
+          text-align: right;
+        }
+      </style>
+
+      <section id="table_section"></section>
+      <section id="space_section"></section>
+      <h5 style="text-align: center;">Cảm ơn và hẹn gặp lại quý khách !</h5>
+    </div>
+
+
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/async/lib/async.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <script src="vendor/jaydata-1.3.6/jaydata.js"></script>
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/category.js"></script>
+    <script src="scripts/controllers/product.js"></script>
+    <script src="scripts/services/dbservice.js"></script>
+    <script src="scripts/controllers/pos.js"></script>
+    <script src="scripts/services/basemodel.js"></script>
+    <script src="scripts/services/salesdetail.js"></script>
+    <script src="scripts/services/sales.js"></script>
+    <script src="scripts/services/attributecategory.js"></script>
+    <script src="scripts/services/apputils.js"></script>
+    <script src="scripts/services/categorymodel.js"></script>
+    <script src="scripts/services/baselistmodel.js"></script>
+    <script src="scripts/services/categorylistmodel.js"></script>
+    <script src="scripts/services/productmodel.js"></script>
+    <script src="scripts/services/productlistmodel.js"></script>
+    <script src="scripts/services/salesdetailmodel.js"></script>
+    <script src="scripts/services/salesmodel.js"></script>
+    <script src="scripts/controllers/attribute.js"></script>
+    <script src="scripts/services/attributemodel.js"></script>
+    <script src="scripts/services/attributelistmodel.js"></script>
+    <script src="scripts/services/attributegroup.js"></script>
+    <script src="scripts/services/attributegroupmodel.js"></script>
+    <script src="scripts/services/attributegrouplistmodel.js"></script>
+    <script src="scripts/controllers/attributegroup.js"></script>
+    <script src="scripts/services/usergroupmodel.js"></script>
+    <script src="scripts/services/usergrouplistmodel.js"></script>
+    <script src="scripts/controllers/usergroup.js"></script>
+    <script src="scripts/services/usermodel.js"></script>
+    <script src="scripts/services/userlistmodel.js"></script>
+    <script src="scripts/controllers/user.js"></script>
+    <script src="scripts/services/discountmodel.js"></script>
+    <script src="scripts/services/discountlistmodel.js"></script>
+    <script src="scripts/controllers/discount.js"></script>
+    <script src="scripts/services/salesdetaillistmodel.js"></script>
+    <script src="scripts/services/saleslistmodel.js"></script>
+    <script src="scripts/services/customermodel.js"></script>
+    <script src="scripts/controllers/loading.js"></script>
+    <script src="scripts/controllers/stockin.js"></script>
+    <script src="scripts/services/stockindetailmodel.js"></script>
+    <script src="scripts/services/stockinmodel.js"></script>
+    <script src="scripts/services/stockindetaillistmodel.js"></script>
+    <script src="scripts/services/suppliermodel.js"></script>
+    <script src="scripts/services/storemodel.js"></script>
+    <script src="scripts/controllers/store.js"></script>
+    <script src="scripts/services/storelistmodel.js"></script>
+    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/services/stockinlistmodel.js"></script>
+    <!-- endbuild -->
+
+</body>
+</html>
